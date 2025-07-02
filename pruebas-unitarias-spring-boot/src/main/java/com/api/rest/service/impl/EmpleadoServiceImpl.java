@@ -27,21 +27,21 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public List<Empleado> getAllEmpleados() {
-        return List.of();
+        return empleadoRepository.findAll();
     }
 
     @Override
     public Optional<Empleado> getEmpleadoById(long id) {
-        return Optional.empty();
+        return empleadoRepository.findById(id);
     }
 
     @Override
     public Empleado updateEmpleado(Empleado empleadoActualizado) {
-        return null;
+        return empleadoRepository.save(empleadoActualizado);
     }
 
     @Override
     public void deleteEmpleado(long id) {
-
+        empleadoRepository.deleteById(id);
     }
 }
