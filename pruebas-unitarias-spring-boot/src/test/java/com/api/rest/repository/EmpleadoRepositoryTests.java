@@ -71,4 +71,36 @@ public class EmpleadoRepositoryTests {
         assertThat(listaEmpleados.size()).isEqualTo(2);
     }
 
+    @DisplayName("Test para buscar empleado por ID")
+    @Test
+    void testBuscarEmpleadoPorId() {
+
+        empleadoRepository.save(empleado);
+
+        // When - Se busca el empleado por su ID
+        Empleado empleadoBuscado = empleadoRepository.findById(empleado.getId()).get();
+
+        // Then - Se espera que el empleado no sea nulo y que su ID coincida
+        assertThat(empleadoBuscado).isNotNull();
+
+    }
+
+    @DisplayName("Test para actualizar empleado por ID")
+    @Test
+    void testActualizarEmpleado() {
+
+        // Given - Se guarda un empleado
+        empleadoRepository.save(empleado);
+
+        // When - Se actualiza el nombre del empleado
+        Empleado empleadoGuardado = empleadoRepository.findById(empleado.getId()).get();
+        empleadoGuardado.setEmail("123j@gmail.com");
+        empleadoGuardado.setNombre("Luis actualizado");
+        empleadoGuardado.setApellido("Diaz actualizado");
+        Empleado empleadoActualizado = empleadoRepository.save(empleadoGuardado);
+
+        // Then - Se espera que el nombre del empleado actualizado sea correcto
+        assertThat(empleadoActualizado.getEmail()).isEqualTo("123j@gmail.com");
+        assertThat(empleadoActualizado.getNombre()).isEqualTo("Luis actualizado");
+    }
 }
