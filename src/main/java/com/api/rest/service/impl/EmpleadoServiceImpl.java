@@ -1,5 +1,6 @@
 package com.api.rest.service.impl;
 
+import com.api.rest.exception.ResourceNotFoundException;
 import com.api.rest.model.Empleado;
 import com.api.rest.repository.EmpleadoRepository;
 import com.api.rest.service.EmpleadoService;
@@ -20,7 +21,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     public Empleado saveEmpleado(Empleado empleado) {
         Optional<Empleado> empleadoGuardado = empleadoRepository.findByEmail(empleado.getEmail());
         if (empleadoGuardado.isPresent()) {
-            throw new RuntimeException("El empleado con el email " + empleado.getEmail() + " ya existe.");
+            throw new ResourceNotFoundException("El empleado con el email " + empleado.getEmail() + " ya existe.");
         }
         return empleadoRepository.save(empleado);
     }
